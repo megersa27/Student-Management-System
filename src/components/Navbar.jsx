@@ -3,7 +3,7 @@ function Navbar() {
     <nav className="navbar">
 
       <h2>
-        ASTU Student Management System
+        Student Management System
       </h2>
 
       <div className="nav-links">
