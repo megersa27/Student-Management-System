@@ -115,34 +115,56 @@ body {
 }
 .form-container button {
   padding: 12px;
-
   cursor: pointer;
-
   border: none;
-
   border-radius: 8px;
-
   background: #222;
-
+  color: white;
+  margin-top: 10px;
+}
+.form-container button:last-child {
+  background: gray;
   color: white;
 }
 .student-card button {
   margin-top: 10px;
-
   padding: 8px 15px;
-
   border: none;
-
   background: crimson;
-
   color: white;
-
   cursor: pointer;
-
   border-radius: 6px;
 }
 
 .student-card button:hover {
   opacity: 0.9;
   background: darkred;
+}
+.student-card a {
+  text-decoration: none;
+  color: black;
+}
+.student-card a:hover {
+  color: blue;
+}
+.buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.buttons button {
+  padding: 8px 15px;
+  cursor: pointer;
+}
+.details-page {
+  padding: 40px;
+  text-align: center;
+}
+.details-page button {
+  margin-top: 20px;
+
+  padding: 10px 20px;
+
+  cursor: pointer;
 }
