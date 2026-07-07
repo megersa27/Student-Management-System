@@ -11,6 +11,7 @@ function Home() {
   const [department, setDepartment] = useState("");
   const [email, setEmail] = useState("");
   const [editingId, setEditingId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const addStudent = () => {
     if (!name || !studentId || !department || !email) {
@@ -72,6 +73,21 @@ function Home() {
     setEditingId(student.id);
   };
 
+  const filteredStudents =
+  students.filter((student) =>
+    student.name
+      .toLowerCase()
+      .includes(
+        searchTerm.toLowerCase()
+      ) ||
+
+    student.studentId
+      ?.toLowerCase()
+      .includes(
+        searchTerm.toLowerCase()
+      )
+  );
+
   return (
     <div className="app">
       <Navbar />
@@ -80,6 +96,37 @@ function Home() {
         <h1>Student Management System</h1>
         <p>Manage students easily.</p>
       </section>
+
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="Search student..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        {searchTerm && (
+  <p>
+    Searching:
+    {searchTerm}
+  </p>
+)}
+      </div>
+
+      <div className="students-container">
+        <h2> Total Students: {students.length} </h2>
+
+        {filteredStudents.length === 0 && <p>No students found.</p>}
+        <div className="student-list">
+          {filteredStudents.map((student) => (
+            <StudentCard
+              key={student.id}
+              student={student}
+              deleteStudent={deleteStudent}
+              editStudent={editStudent}
+            />
+          ))}
+        </div>
+      </div>
 
       <div className="form-container">
         <h2>Add Student</h2>
@@ -124,21 +171,6 @@ function Home() {
             Cancel
           </button>
         )}
-      </div>
-
-      <div className="students-container">
-        <h2> Total Students: {students.length} </h2>
-
-        <div className="student-list">
-          {students.map((student) => (
-            <StudentCard
-              key={student.id}
-              student={student}
-              deleteStudent={deleteStudent}
-              editStudent={editStudent}
-            />
-          ))}
-        </div>
       </div>
 
       <Footer />
