@@ -184,3 +184,15 @@ body {
 
   border-radius: 8px;
 }
+.filter-container {
+  width: 80%;
+  max-width: 500px;
+  margin: 15px auto;
+}
+
+.filter-container select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}

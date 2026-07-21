@@ -12,6 +12,7 @@ function Home() {
   const [email, setEmail] = useState("");
   const [editingId, setEditingId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedDepartment, setSelectedDepartment] = useState("All");
 
   const addStudent = () => {
     if (!name || !studentId || !department || !email) {
@@ -73,20 +74,21 @@ function Home() {
     setEditingId(student.id);
   };
 
-  const filteredStudents =
-  students.filter((student) =>
+  const filteredStudents = students.filter((student) => {
+  const matchesSearch =
     student.name
       .toLowerCase()
-      .includes(
-        searchTerm.toLowerCase()
-      ) ||
-
+      .includes(searchTerm.toLowerCase()) ||
     student.studentId
       ?.toLowerCase()
-      .includes(
-        searchTerm.toLowerCase()
-      )
-  );
+      .includes(searchTerm.toLowerCase());
+
+  const matchesDepartment =
+    selectedDepartment === "All" ||
+    student.department === selectedDepartment;
+
+  return matchesSearch && matchesDepartment;
+});
 
   return (
     <div className="app">
@@ -111,6 +113,45 @@ function Home() {
   </p>
 )}
       </div>
+
+      <div className="filter-container">
+  <select
+    value={selectedDepartment}
+    onChange={(e) =>
+      setSelectedDepartment(e.target.value)
+    }
+  >
+    <option value="All">All Departments</option>
+    <option value="Computer Science">
+      Computer Science
+    </option>
+    <option value="Software Engineering">
+      Software Engineering
+    </option>
+    <option value="Information Technology">
+      Information Technology
+    </option>
+    <option value="Electrical Engineering">
+      Electrical Engineering
+    </option>
+  </select>
+  <p>
+  Selected Department:
+  {selectedDepartment}
+</p>
+<p>
+  Students:
+  {filteredStudents.length}
+</p>
+<button
+  onClick={() => {
+    setSelectedDepartment("All");
+    setSearchTerm("");
+  }}
+>
+  Reset Filters
+</button>
+</div>
 
       <div className="students-container">
         <h2> Total Students: {students.length} </h2>
