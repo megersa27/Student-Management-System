@@ -196,3 +196,41 @@ body {
   border-radius: 8px;
   border: 1px solid #ccc;
 }
+.light {
+  background: white;
+  color: black;
+
+  min-height: 100vh;
+}
+
+.dark {
+  background: #1b1b1b;
+  color: white;
+
+  min-height: 100vh;
+}
+
+.dark .navbar {
+  background: black;
+}
+
+.dark .footer {
+  background: black;
+}
+
+.dark input,
+.dark select {
+  background: #333;
+  color: white;
+  border: 1px solid #666;
+}
+
+.dark .student-card {
+  background: #2c2c2c;
+  color: white;
+}
+.dark .hero h1{
+
+color:gold;
+
+}
