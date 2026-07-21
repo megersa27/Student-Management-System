@@ -1,11 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import StudentCard from "../components/StudentCard";
 
 function Home() {
-  const [students, setStudents] = useState([]);
+  const [students, setStudents] = useState(() => {
+  const savedStudents =
+    localStorage.getItem("students");
+
+  return savedStudents
+    ? JSON.parse(savedStudents)
+    : [
+        {
+          id: 1,
+          name: "John Doe",
+          studentId: "ASTU001",
+          department: "Computer Science",
+        },
+        {
+          id: 2,
+          name: "Sara Ali",
+          studentId: "ASTU002",
+          department: "Information Technology",
+        },
+      ];
+});
   const [name, setName] = useState("");
   const [studentId, setStudentId] = useState("");
   const [department, setDepartment] = useState("");
@@ -13,6 +33,16 @@ function Home() {
   const [editingId, setEditingId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("All");
+
+  useEffect(() => {
+  localStorage.setItem(
+    "students",
+    JSON.stringify(students)
+  );
+}, [students]);
+useEffect(() => {
+  console.log("Students updated");
+}, [students]);
 
   const addStudent = () => {
     if (!name || !studentId || !department || !email) {
@@ -90,6 +120,16 @@ function Home() {
   return matchesSearch && matchesDepartment;
 });
 
+const clearStudents = () => {
+  if (
+    window.confirm(
+      "Delete all students?"
+    )
+  ) {
+    setStudents([]);
+  }
+};
+
   return (
     <div className="app">
       <Navbar />
@@ -155,6 +195,9 @@ function Home() {
 
       <div className="students-container">
         <h2> Total Students: {students.length} </h2>
+        <button onClick={clearStudents}>
+  Clear All Students
+</button>
 
         {filteredStudents.length === 0 && <p>No students found.</p>}
         <div className="student-list">
